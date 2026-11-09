@@ -1,0 +1,40 @@
+{
+  "upstream_revision": "ebfe814b759803f61771b36d1fd197b71b751d1d",
+  "stage2_backend": "gpu",
+  "source_sha256": {
+    "build_gpu_timing.py": "648a75e91d13755b910d08a86888a61e7efba716e2da5114deb1d5fadad0cfb1",
+    "native/solve.cpp": "7465a7c3ee40e2f89ae13f617147877631f87c0beb6051ed1f2b4115b5581aa3",
+    "patches/batch-reconstruction.patch": "05245878b520db40cf2abf261756733581418055384e303454b6f927b4d5fb35"
+  },
+  "generated_harness_sha256": "4c7ba3a5f13fb3929e0e049dae2db53d05016e8de3a6e25c3170914e9adb330e",
+  "input_objects_sha256": {
+    "build/solution-corrected.o": "3baa10e29bdfe38b08c9aa1c973518901f426abbebc7aa6999386dd9972b3dc4",
+    "build/liblingen-corrected.a": "c50cd006f9f8e3649aaf1fa5008c13133c775dc25015d2598e5937949f51ef9c"
+  },
+  "binary_sha256": "271e47ea0f804895854b0602cf30c162bacb5bb1947d0790e40fc7f5d89c4c0e",
+  "command": [
+    "/usr/local/cuda-13.3/bin/nvcc",
+    "-O3",
+    "-std=c++17",
+    "-arch=sm_120",
+    "-rdc=true",
+    "-Xcompiler=-fopenmp",
+    "build/solve-gpu-timing.cpp",
+    "-IUPSTREAM/include",
+    "-IUPSTREAM/src",
+    "-IUPSTREAM/cuda_spmm/include",
+    "-IUPSTREAM/utils",
+    "-IUPSTREAM_BUILD/generated",
+    "build/solution-corrected.o",
+    "build/liblingen-corrected.a",
+    "UPSTREAM_BUILD/cuda_spmm/libspmm_core.a",
+    "UPSTREAM_BUILD/cuda_spmm/libhpc_logger.a",
+    "-lcudart",
+    "-lgomp",
+    "-lpthread",
+    "-ldl",
+    "-o",
+    "build/solve-gpu-timing"
+  ],
+  "scope": "Explicit stage2_gpu_mode=true and LOG_STATS. Same operator, correction, oracle controls and independent certificate checks. Compare with the retained CPU-generator control; do not infer backend from GPU use in annihilation alone."
+}

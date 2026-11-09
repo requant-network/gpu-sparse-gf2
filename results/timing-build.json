@@ -1,0 +1,39 @@
+{
+  "upstream_revision": "ebfe814b759803f61771b36d1fd197b71b751d1d",
+  "source_sha256": {
+    "build_timing.py": "6d5e9fd862919c31e980c44f902d204f4458fd022f79e10df6ae8d6364da2fac",
+    "native/solve.cpp": "7465a7c3ee40e2f89ae13f617147877631f87c0beb6051ed1f2b4115b5581aa3",
+    "patches/batch-reconstruction.patch": "05245878b520db40cf2abf261756733581418055384e303454b6f927b4d5fb35"
+  },
+  "generated_harness_sha256": "58e73839a9de1ed13bf31e515a40c09fdb268a960b26d49163dbe5079092cb69",
+  "input_objects_sha256": {
+    "build/solution-corrected.o": "3baa10e29bdfe38b08c9aa1c973518901f426abbebc7aa6999386dd9972b3dc4",
+    "build/liblingen-corrected.a": "c50cd006f9f8e3649aaf1fa5008c13133c775dc25015d2598e5937949f51ef9c"
+  },
+  "binary_sha256": "7373adc69a90f0f2ac91df6c3479f105603da7aea6eb44de67323b52f95d891f",
+  "command": [
+    "/usr/local/cuda-13.3/bin/nvcc",
+    "-O3",
+    "-std=c++17",
+    "-arch=sm_120",
+    "-rdc=true",
+    "-Xcompiler=-fopenmp",
+    "build/solve-timing.cpp",
+    "-IUPSTREAM/include",
+    "-IUPSTREAM/src",
+    "-IUPSTREAM/cuda_spmm/include",
+    "-IUPSTREAM/utils",
+    "-IUPSTREAM_BUILD/generated",
+    "build/solution-corrected.o",
+    "build/liblingen-corrected.a",
+    "UPSTREAM_BUILD/cuda_spmm/libspmm_core.a",
+    "UPSTREAM_BUILD/cuda_spmm/libhpc_logger.a",
+    "-lcudart",
+    "-lgomp",
+    "-lpthread",
+    "-ldl",
+    "-o",
+    "build/solve-timing"
+  ],
+  "scope": "Only the log threshold changes from INFO to STATS; arithmetic, oracles, independent checks and configuration remain unchanged."
+}

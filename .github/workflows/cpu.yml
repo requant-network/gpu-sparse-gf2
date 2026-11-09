@@ -14,3 +14,6 @@ jobs:
       - run: python verify_records.py
       - run: python cpu_study.py --output build/ci-reference.json
       - run: python verify_results.py
+      - run: python summarize_results.py
+      - run: python generate_report.py
+      - run: git diff --exit-code -- results/products-summary.csv results/native-summary.csv results/report-provenance.json RESULTS.md FINAL_REPORT.md
