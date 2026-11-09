@@ -1,0 +1,15 @@
+--- a/src/lingen/stage3/solution_reconstructor.cu
++++ b/src/lingen/stage3/solution_reconstructor.cu
+@@ -858,7 +858,11 @@
+     size_t total_bytes = nrows_ * ((n_block_ + 63) / 64) * sizeof(uint64_t);
+     CHECK_CUDA_REC(cudaMemcpyAsync(h_chk_buf_.data(), d_ptr, total_bytes, cudaMemcpyDeviceToHost, stream));
+     CHECK_CUDA_REC(cudaStreamSynchronize(stream));
+-    return fnv1a_hash_uint64(h_chk_buf_);
++    auto h=fnv1a_hash_uint64(h_chk_buf_);
++    if(h==0x3bbd6075911eaf65ULL || h==0x8bcb6d08964163a5ULL){
++      std::cerr<<"RQ_VECTOR "<<std::hex<<h<<" ";for(auto x:h_chk_buf_)std::cerr<<x<<",";std::cerr<<std::dec<<"\n";
++    }
++    return h;
+ }
+ 
+ void SolutionReconstructor::VerifyAgainstOracle(int candidate_col_idx, 

@@ -1,0 +1,93 @@
+{
+  "upstream_revision": "ebfe814b759803f61771b36d1fd197b71b751d1d",
+  "commands": [
+    [
+      "/usr/local/cuda-13.3/bin/nvcc",
+      "-O3",
+      "-std=c++17",
+      "-arch=sm_120",
+      "-rdc=true",
+      "-Xcompiler=-fopenmp",
+      "-IUPSTREAM/include",
+      "-IUPSTREAM/src",
+      "-IUPSTREAM/cuda_spmm/include",
+      "-IUPSTREAM/utils",
+      "-IUPSTREAM_BUILD/generated",
+      "-c",
+      "build/patched-stage3/src/lingen/stage3/solution_reconstructor.cu",
+      "-o",
+      "build/solution-corrected.o"
+    ],
+    [
+      "ar",
+      "d",
+      "build/liblingen-corrected.a",
+      "solution_reconstructor.cu.o"
+    ],
+    [
+      "/usr/local/cuda-13.3/bin/nvcc",
+      "native/solve.cpp",
+      "-O3",
+      "-std=c++17",
+      "-arch=sm_120",
+      "-rdc=true",
+      "-Xcompiler=-fopenmp",
+      "-IUPSTREAM/include",
+      "-IUPSTREAM/src",
+      "-IUPSTREAM/cuda_spmm/include",
+      "-IUPSTREAM/utils",
+      "-IUPSTREAM_BUILD/generated",
+      "build/solution-corrected.o",
+      "build/liblingen-corrected.a",
+      "UPSTREAM_BUILD/cuda_spmm/libspmm_core.a",
+      "UPSTREAM_BUILD/cuda_spmm/libhpc_logger.a",
+      "-lcudart",
+      "-lgomp",
+      "-lpthread",
+      "-ldl",
+      "-o",
+      "build/solve-corrected"
+    ],
+    [
+      "/usr/local/cuda-13.3/bin/nvcc",
+      "UPSTREAM/benchmarks/bw_lingen_smoke.cu",
+      "-O3",
+      "-std=c++17",
+      "-arch=sm_120",
+      "-rdc=true",
+      "-Xcompiler=-fopenmp",
+      "-IUPSTREAM/include",
+      "-IUPSTREAM/src",
+      "-IUPSTREAM/cuda_spmm/include",
+      "-IUPSTREAM/utils",
+      "-IUPSTREAM_BUILD/generated",
+      "build/solution-corrected.o",
+      "build/liblingen-corrected.a",
+      "UPSTREAM_BUILD/cuda_spmm/libspmm_core.a",
+      "UPSTREAM_BUILD/cuda_spmm/libhpc_logger.a",
+      "-lcudart",
+      "-lgomp",
+      "-lpthread",
+      "-ldl",
+      "-o",
+      "build/smoke-corrected"
+    ]
+  ],
+  "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Tue_Jun_09_02:43:40_PM_PDT_2026\nCuda compilation tools, release 13.3, V13.3.73\nBuild cuda_13.3.r13.3/compiler.38244171_0\n",
+  "source_sha256": {
+    "build_native.py": "223af329ba917ec8e05c69377cc3e6fc084ca89df24564ed009b8f5f1ddbeb7f",
+    "native/solve.cpp": "7465a7c3ee40e2f89ae13f617147877631f87c0beb6051ed1f2b4115b5581aa3",
+    "patches/batch-reconstruction.patch": "05245878b520db40cf2abf261756733581418055384e303454b6f927b4d5fb35"
+  },
+  "patched_source_sha256": "6089dd944eed3ae466f6d21ae2bcc29ef677d92f1aaf3763dcd1049b24d9206d",
+  "binary_sha256": {
+    "build/solve-corrected": "86c8142979286848c86f0bbb93f29747eb9d7b4023db8579fd325e30d6997550",
+    "build/smoke-corrected": "b53b6580b1d28a7b4d9a08346d318f8c3006f3b0fc643434d60f3585e2ae9ec2"
+  },
+  "upstream_libraries_sha256": {
+    "liblingen_ops.a": "875d14bb2ea55e46082ac57ca37cf5b23c3c706ca112cc59f3b3449182e5f006",
+    "cuda_spmm/libspmm_core.a": "55d15af1c48a807eb096162cad1442b03731ca022c33117c4203918338ab799f",
+    "cuda_spmm/libhpc_logger.a": "f7f004fc1635fcb4cd7d6f447aca70d1ef5f544e5edaff49792331ed35bd2709"
+  },
+  "scope": "Keep all native oracle, annihilation and SpMM checks. Replace only stage-three object, because nvcc device linking loads all archive device objects."
+}

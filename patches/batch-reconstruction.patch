@@ -1,0 +1,24 @@
+--- a/src/lingen/stage3/solution_reconstructor.cu
++++ b/src/lingen/stage3/solution_reconstructor.cu
+@@ -352,6 +352,12 @@
+         BatchCandidate current_batch;
+         current_batch.max_degree = -1;
+         for (const auto& cand : candidate_queue_) {
++            // Different degrees must not receive extra Horner shifts after their own polynomial ends.
++            if (!current_batch.candidates.empty() && cand.degree != current_batch.max_degree) {
++                batch_queue_.push_back(current_batch);
++                current_batch = BatchCandidate();
++                current_batch.max_degree = -1;
++            }
+             current_batch.candidates.push_back(cand);
+             current_batch.max_degree = std::max(current_batch.max_degree, cand.degree);
+             if (current_batch.candidates.size() >= (uint64_t)n_block_) {
+@@ -599,6 +605,8 @@
+     
+     int cursor = 0;
+     
++    // Unwritten history must not resurrect an initially zero candidate as a garbage vector.
++    CHECK_CUDA_REC(cudaMemsetAsync(d_history_, 0, total_bytes * history_depth_, stream));
+     // Save initial state (step 0 of stripping)
+     CHECK_CUDA_REC(cudaMemcpyAsync(d_history_ + cursor * (total_bytes/8), d_W_batch_, total_bytes, cudaMemcpyDeviceToDevice, stream));
+     

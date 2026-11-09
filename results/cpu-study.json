@@ -1,0 +1,53 @@
+{
+  "exhaustive_small_matrices": 72,
+  "altered_certificates_rejected": 52,
+  "families": [
+    {
+      "seed": 20261109,
+      "family": "uniform",
+      "rank": 119,
+      "nullity": 9,
+      "nonzeros": 1644
+    },
+    {
+      "seed": 20261109,
+      "family": "banded",
+      "rank": 120,
+      "nullity": 8,
+      "nonzeros": 1515
+    },
+    {
+      "seed": 20261109,
+      "family": "head",
+      "rank": 119,
+      "nullity": 9,
+      "nonzeros": 1998
+    },
+    {
+      "seed": 20261209,
+      "family": "uniform",
+      "rank": 119,
+      "nullity": 9,
+      "nonzeros": 1633
+    },
+    {
+      "seed": 20261209,
+      "family": "banded",
+      "rank": 120,
+      "nullity": 8,
+      "nonzeros": 1512
+    },
+    {
+      "seed": 20261209,
+      "family": "head",
+      "rank": 119,
+      "nullity": 9,
+      "nonzeros": 2003
+    }
+  ],
+  "source_sha256": {
+    "cpu_study.py": "9deab3a19b9527dd56a9d4da0f46febf3de4817bd008cc42d3ea7d349d646e2e",
+    "experiments/binary.py": "b712ae1b7370c5c9a130c21fd1bb370ae56094a09d9e65636b6dbf4a03b10b55"
+  },
+  "scope": "Independent exact elimination and sparse block products. Benchmark families plant repeated columns to guarantee nonzero nullspace; no hardness/mining claim."
+}
