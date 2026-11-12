@@ -39,3 +39,7 @@ Repeated observations remain attached to their input seed. Uniform 512-row cases
 First, optimize and qualify the dense generator at larger block sizes, including its validation and initialization costs. That target follows from measured phase attribution. Second, use much larger, explicitly characterized sparse matrices before generalizing the small-case block-size ranking. Third, integrate an alternative sparse layout only when its conversion/amortization model predicts a meaningful complete-solve gain; retain the current independent residual checks during that work.
 
 The study does not include relation collection, matrix filtering, a full number-field sieve, an integrated original-layout solver, a cryptographic challenge design or energy measurements. Those are separate application workloads. [Results](RESULTS.md), [Methods](METHODS.md), [related work](RELATED_WORK.md) and the [research protocol](RESEARCH.md) retain the full source and claim boundaries.
+
+## Follow-up closure, 12 November 2026
+
+The [follow-up report](FOLLOWUP_REPORT.md) resolves the concrete priorities above with additional experiments, resource gates and updated conclusions. Its findings supersede the open-work wording in this historical campaign.

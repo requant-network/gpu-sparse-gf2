@@ -16,4 +16,5 @@ jobs:
       - run: python verify_results.py
       - run: python summarize_results.py
       - run: python generate_report.py
-      - run: git diff --exit-code -- results/products-summary.csv results/native-summary.csv results/report-provenance.json RESULTS.md FINAL_REPORT.md
+      - run: python verify_followups.py
+      - run: git diff --exit-code -- results/followup-summary.csv results/products-summary.csv results/native-summary.csv results/report-provenance.json RESULTS.md FINAL_REPORT.md

@@ -116,6 +116,7 @@ First, optimize and qualify the dense generator at larger block sizes, including
 
 The study does not include relation collection, matrix filtering, a full number-field sieve, an integrated original-layout solver, a cryptographic challenge design or energy measurements. Those are separate application workloads. [Results](RESULTS.md), [Methods](METHODS.md), [related work](RELATED_WORK.md) and the [research protocol](RESEARCH.md) retain the full source and claim boundaries.
 '''
+final += '\n## Follow-up closure, 12 November 2026\n\nThe [follow-up report](FOLLOWUP_REPORT.md) resolves the concrete priorities above with additional experiments, resource gates and updated conclusions. Its findings supersede the open-work wording in this historical campaign.\n'
 (root/'RESULTS.md').write_text(results,encoding='utf-8',newline='\n');(root/'FINAL_REPORT.md').write_text(final,encoding='utf-8',newline='\n')
 record=dict(source_sha256={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in ['generate_report.py','summarize_results.py']},
     artifacts_sha256={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in ['RESULTS.md','FINAL_REPORT.md','results/products-summary.csv','results/native-summary.csv']},

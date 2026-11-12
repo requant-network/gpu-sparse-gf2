@@ -76,3 +76,7 @@ With NumPy 2.2.6 and CuPy 13.6.0, run the original layouts with `python gpu_stud
 The [protocol](RESEARCH.md) defines completion gates. Raw records are retained in [results](results), including complete native vectors suitable for CPU-only checking. CI reruns independent CPU arithmetic, checks source bindings, and independently checks committed native certificates; hosted CPU CI does not rerun CUDA solves.
 
 The [final report](FINAL_REPORT.md) maps the protocol gates to retained evidence, including the original failing vectors and all CPU/GPU-hybrid backend measurements. [Related work](RELATED_WORK.md) separates the established algorithms from this study's correction and experiments. The reconstruction correction is tested on bounded fixtures and the upstream golden test; it is not a general proof of solver correctness. Original research code is [MIT licensed](LICENSE). The attributed patch and included upstream material retain LGPL-3.0-only and the upstream NVIDIA CUDA linking exception. No issue or pull request has been sent upstream.
+
+## Follow-up closure, 12 November 2026
+
+The [follow-up report](FOLLOWUP_REPORT.md) records the disposition of the concrete next steps: new experiments, negative findings and measured resource limits. The earlier completed campaign remains available for historical comparison. Run `python verify_followups.py` for the added evidence checks.
